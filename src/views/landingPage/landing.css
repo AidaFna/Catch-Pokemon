@@ -1,0 +1,17 @@
+.body-landing{
+  background-color:lightseagreen;
+  height: 100vh;
+}
+.img-landing{
+  margin-top: 30vh;
+}
+.text-start{
+  background-color: seagreen;
+  margin: 30px;
+  padding: 5px;
+  text-align: center;
+}
+.text-copyright{
+  margin-top: 180px;
+  font-size: 12px;
+}

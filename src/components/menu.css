@@ -1,0 +1,20 @@
+.navbar-top{
+  box-shadow: 1px 1px 5px grey;
+}
+.navbar-mobile{
+  box-shadow: 1px 1px 5px grey;
+}
+
+/* mobile view */
+@media screen and (max-width: 700px) {
+  .toggle-web{
+    display:none;
+  }
+}
+
+/* web view */
+@media screen and (min-width: 700px) {
+  .navbar-mobile{
+    display:none;
+  }
+}

@@ -1,0 +1,45 @@
+.body-details{
+  background-color: yellow;
+  height: 100vh;
+}
+.details-card{
+  padding-top: 100px;
+  margin-bottom: 50px;
+}
+.img-details{
+  margin-top: -50px;
+}
+.details-pokemon{
+  background-color: white;
+  border: none;
+  box-shadow: 2px 2px 5px grey;
+  margin-bottom: 40px;
+  margin-top: 10px;
+}
+.catch button{
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+}
+.cursor-pointer{
+  cursor: pointer;
+}
+
+/* mobile view */
+@media screen and (max-width: 700px) {
+.details-pokemon{
+  height: 50vh;
+}
+
+}
+
+/* web view */
+@media screen and (min-width: 700px) {
+  .details-pokemon{
+    height: 80vh;
+  }
+  .catch-button{
+    display: none;
+  }
+}
+
