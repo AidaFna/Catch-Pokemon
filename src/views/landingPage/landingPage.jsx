@@ -5,7 +5,7 @@ import "./landing.css";
 const Landing = () => {
   const navigate = useNavigate();
   return (
-    <div className="body-landing">
+    <div className="body-landing" key={0}>
       <center>
         <img
           alt=""

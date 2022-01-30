@@ -1,4 +1,3 @@
-// import Logo from "../../assets/image/poke512.png";
 import DownMenu from "../../components/downMenu";
 import TopMenu from "../../components/topMenu";
 import { useNavigate } from "react-router-dom";
@@ -13,13 +12,14 @@ const List = () => {
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
   const Pokemon = useSelector(({ pokemon }) => pokemon);
+  const MyPokemon = useSelector(({ myPokemon }) => myPokemon);
   useEffect(() => {
     // console.log(Pokemon);
     dispatch(allStore.getPokemon());
   }, [dispatch, Pokemon]);
 
   return (
-    <>
+    <div key={1}>
       <TopMenu />
       <Container className="list-card">
         <div>
@@ -44,13 +44,6 @@ const List = () => {
                     onClick={() => navigate(`/${el.name}`)}
                     key={idx}
                   >
-                    {/* <img
-                    alt=""
-                    src={Logo}
-                    width="80"
-                    height="80"
-                    className="d-inline-block align-top ms-auto img-pokemon"
-                  /> */}
                     <Card.Body>
                       <Row>
                         <Col md={10} xs={10} className="pokemon-name">
@@ -59,8 +52,8 @@ const List = () => {
                         <Col md={2} xs={2}>
                           <Badge bg="secondary">
                             {
-                              Pokemon.filter((Pokemon) =>
-                                Pokemon.name.includes(search)
+                              MyPokemon.filter((MyPokemon) =>
+                                MyPokemon.name.includes(el.name)
                               ).length
                             }
                           </Badge>
@@ -77,7 +70,7 @@ const List = () => {
         </Row>
       </Container>
       <DownMenu />
-    </>
+    </div>
   );
 };
 export default List;

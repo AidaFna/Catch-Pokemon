@@ -2,6 +2,7 @@ import { Card, Container, Row, Col, ProgressBar } from "react-bootstrap";
 import Logo from "../../assets/image/poke512.png";
 import DownMenu from "../../components/downMenu";
 import TopMenu from "../../components/topMenu";
+import ModalAdd from "./modalAddPokemon";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import swal from "sweetalert";
@@ -12,23 +13,44 @@ import "./details.css";
 const Details = () => {
   const dispatch = useDispatch();
   const { name } = useParams();
+  const [modalShow, setModalShow] = useState(false);
   const [prop, setProp] = useState("");
   const Details = useSelector(({ details }) => details);
+  const Types = useSelector(({ types }) => types);
+  const Moves = useSelector(({ moves }) => moves);
+  const Abilities = useSelector(({ abilities }) => abilities);
+  const Stats = useSelector(({ stats }) => stats);
+  const Sprites = useSelector(({ sprites }) => sprites);
 
   useEffect(() => {
-    // console.log(Details);
     dispatch(allStore.getDetails(name));
   }, [dispatch, name]);
+
+  useEffect(() => {
+    dispatch(allStore.getTypes(name));
+  }, [dispatch, name]);
+
+  useEffect(() => {
+    dispatch(allStore.getMoves(name));
+  }, [dispatch, name]);
+
+  useEffect(() => {
+    dispatch(allStore.getAbilities(name));
+  }, [dispatch, name]);
+
+  useEffect(() => {
+    dispatch(allStore.getStats(name));
+  }, [dispatch, name]);
+
+  useEffect(() => {
+    // console.log(Sprites);
+    dispatch(allStore.getSprites(name));
+  }, [dispatch, name, Sprites]);
 
   const handleCatch = () => {
     setProp(Math.floor(Math.random() * 2));
     if (prop === 1) {
-      return swal({
-        title: "Good job!",
-        text: `You catch the pokemon ${name}`,
-        icon: "success",
-        button: "YEAHHH",
-      });
+      setModalShow(true);
     } else if (prop === 0) {
       return swal({
         title: "So Sad!",
@@ -39,7 +61,7 @@ const Details = () => {
     }
   };
   return (
-    <div className="body-details">
+    <div className="body-details" key={2}>
       <TopMenu />
       <Container className="details-card">
         <Card className="details-pokemon">
@@ -48,7 +70,7 @@ const Details = () => {
               <Col md={12} xs={4}>
                 <img
                   alt={Details.name}
-                  src={Details.sprites.front_default}
+                  src={Sprites.front_default}
                   height="100"
                   className="d-inline-block align-top img-details"
                 />
@@ -60,24 +82,26 @@ const Details = () => {
               </Col>
               <Col md={6} xs={3}>
                 <h5 className="dtl-title">Types</h5>
-                {Details.types.map((el, idx) => (
-                  <h6 className="dtl-data">{el.type.name}</h6>
+                {Types.map((el, idx) => (
+                  <h6 className="dtl-data" key={idx}>
+                    {el.type.name}
+                  </h6>
                 ))}
               </Col>
               <Col md={6} xs={5}>
                 <h5 className="dtl-title">Top 5 Moves</h5>
-                {Details.moves.slice(0, 5).map((el, idx) => (
+                {Moves.slice(0, 5).map((el, idx) => (
                   <h6 className="dtl-data">{el.move.name}</h6>
                 ))}
               </Col>
               <Col md={6} xs={4}>
                 <h5 className="dtl-title">Abilities</h5>
-                {Details.abilities.slice(0, 5).map((el, idx) => (
+                {Abilities.slice(0, 5).map((el, idx) => (
                   <h6 className="dtl-data">{el.ability.name}</h6>
                 ))}
               </Col>
               <Col md={12} xs={12}>
-                {Details.stats.map((el, idx) => (
+                {Stats.map((el, idx) => (
                   <Row>
                     <Col md={4} xs={4}>
                       <h5 className="dtl-title">{el.stat.name}</h5>
@@ -110,6 +134,11 @@ const Details = () => {
         </div>
       </Container>
       <DownMenu />
+      <ModalAdd
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        name={name}
+      />
     </div>
   );
 };
