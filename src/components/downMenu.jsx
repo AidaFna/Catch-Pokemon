@@ -14,7 +14,7 @@ const DownMenu = () => {
       >
         <Container>
           <Nav className="mx-auto">
-            <Nav.Link href="#home" onClick={() => navigate("/")}>
+            <Nav.Link onClick={() => navigate("/")}>
               <img
                 alt=""
                 src={Logo}
@@ -25,7 +25,7 @@ const DownMenu = () => {
               &nbsp; Pokemon List
             </Nav.Link>
             <div style={{ borderLeft: "1px solid grey", height: "40px" }}></div>
-            <Nav.Link href="#features">
+            <Nav.Link onClick={() => navigate("/my-pokemon")}>
               <img
                 alt=""
                 src={Logo}

@@ -62,6 +62,7 @@ const TopMenu = () => {
                     src={My}
                     height="30"
                     className="d-inline-block align-top"
+                    onClick={() => navigate("/my-pokemon")}
                   />
                 </Nav.Link>
               </Nav>
