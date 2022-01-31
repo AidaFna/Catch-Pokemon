@@ -5,6 +5,8 @@
 .details-card{
   padding-top: 90px;
   margin-bottom: 50px;
+  height: 100vh;
+  padding-bottom: 50px;
 }
 .img-details{
   margin-top: -50px;
@@ -15,6 +17,9 @@
   border: none;
   box-shadow: 2px 2px 5px grey;
   margin-bottom: 10px;
+}
+.pokemon-name{
+  color: steelblue;
 }
 .dtl-title{
   font-size: x-small;
@@ -38,15 +43,28 @@
   .details-pokemon{
     height: 58vh;
   }
+  .btn-back{
+    display: none;
+  }
 }
 
 /* web view */
 @media screen and (min-width: 700px) {
   .details-pokemon{
-    height: 80vh;
+    height: 70vh;
   }
-  .catch-button{
-    display: none;
+  .pokemon-name{
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  .pokemon-img{
+    text-align: center;
+  }
+  .img-details{
+    height: 200px;
+  }
+  .btn-back{
+    color: #ffcc03;
   }
 }
 

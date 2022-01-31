@@ -30,7 +30,7 @@ const List = () => {
             type="text"
             placeholder="Search Pokemon name"
             className="search-bar"
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => setSearch(e.target.value.toLowerCase())}
           />
         </div>
         <Row className="mt-5">

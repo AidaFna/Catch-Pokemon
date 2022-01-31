@@ -54,7 +54,7 @@ const MyPokemon = () => {
             type="text"
             placeholder="Search Pokemon name"
             className="search-bar"
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => setSearch(e.target.value.toLowerCase())}
           />
         </div>
         <Row className="mt-5">
@@ -74,7 +74,7 @@ const MyPokemon = () => {
                         onClick={() => navigate(`/${el.name}`)}
                       >
                         <h3>{el.name}</h3>
-                        <h6>nickname: {el.phone}</h6>
+                        <h6>nickname: {el.nickname}</h6>
                       </Col>
                       <Col md={4} xs={4}>
                         <Button

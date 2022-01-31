@@ -3,7 +3,7 @@ import Logo from "../../assets/image/poke512.png";
 import DownMenu from "../../components/downMenu";
 import TopMenu from "../../components/topMenu";
 import ModalAdd from "./modalAddPokemon";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import swal from "sweetalert";
 import allStore from "../../store/actions";
@@ -12,9 +12,9 @@ import "./details.css";
 
 const Details = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { name } = useParams();
   const [modalShow, setModalShow] = useState(false);
-  const [prop, setProp] = useState("");
   const Details = useSelector(({ details }) => details);
   const Types = useSelector(({ types }) => types);
   const Moves = useSelector(({ moves }) => moves);
@@ -48,13 +48,14 @@ const Details = () => {
   }, [dispatch, name, Sprites]);
 
   const handleCatch = () => {
-    setProp(Math.floor(Math.random() * 2));
-    if (prop === 1) {
+    let prob = Math.floor(Math.random() * 2);
+    if (prob === 1) {
       setModalShow(true);
-    } else if (prop === 0) {
-      return swal({
+    } else if (prob === 0) {
+      navigate("/");
+      swal({
         title: "So Sad!",
-        text: `You do not catch the pokemon ${name}`,
+        text: `You do not catch the pokemon ${name}, try again!`,
         icon: "warning",
         button: "UHHHH",
       });
@@ -67,12 +68,19 @@ const Details = () => {
         <Card className="details-pokemon">
           <Card.Body>
             <Row>
-              <Col md={12} xs={4}>
+              <h4
+                className="cursor-pointer btn-back"
+                onClick={() => navigate("/")}
+              >
+                <i class="bi bi-arrow-left-square-fill"></i> Back
+              </h4>
+
+              <Col md={12} xs={4} className="pokemon-img">
                 <img
                   alt={Details.name}
                   src={Sprites.front_default}
                   height="100"
-                  className="d-inline-block align-top img-details"
+                  className="d-inline-block align-top mx-auto img-details"
                 />
               </Col>
               <Col md={12} xs={8} className="pokemon-name">
@@ -80,7 +88,7 @@ const Details = () => {
                   <strong>{Details.name}</strong>
                 </h3>
               </Col>
-              <Col md={6} xs={3}>
+              <Col md={2} xs={3}>
                 <h5 className="dtl-title">Types</h5>
                 {Types.map((el, idx) => (
                   <h6 className="dtl-data" key={idx}>
@@ -88,19 +96,19 @@ const Details = () => {
                   </h6>
                 ))}
               </Col>
-              <Col md={6} xs={5}>
+              <Col md={3} xs={5}>
                 <h5 className="dtl-title">Top 5 Moves</h5>
                 {Moves.slice(0, 5).map((el, idx) => (
                   <h6 className="dtl-data">{el.move.name}</h6>
                 ))}
               </Col>
-              <Col md={6} xs={4}>
+              <Col md={2} xs={4}>
                 <h5 className="dtl-title">Abilities</h5>
                 {Abilities.slice(0, 5).map((el, idx) => (
                   <h6 className="dtl-data">{el.ability.name}</h6>
                 ))}
               </Col>
-              <Col md={12} xs={12}>
+              <Col md={5} xs={12}>
                 {Stats.map((el, idx) => (
                   <Row>
                     <Col md={4} xs={4}>
@@ -126,7 +134,10 @@ const Details = () => {
               width="50"
               height="50"
               className="d-inline-block align-top align-center cursor-pointer"
-              onClick={() => handleCatch()}
+              onClick={(e) => {
+                // setProp(Math.floor(Math.random() * 2));
+                handleCatch();
+              }}
             />
             <br />
             <h6>Catch me!</h6>

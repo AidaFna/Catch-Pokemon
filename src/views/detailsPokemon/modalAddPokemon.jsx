@@ -1,25 +1,34 @@
 import { useEffect, useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import swal from "sweetalert";
 import allStore from "../../store/actions";
 
 const ModalAdd = ({ show, onHide, name }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [nickName, setNickName] = useState("");
-  const [error, setError] = useState("");
+  const [nickname, setNickName] = useState("");
+  const MyPokemon = useSelector(({ myPokemon }) => myPokemon);
 
   useEffect(() => {
-    console.log(nickName);
-  }, [nickName]);
+    // console.log(MyPokemon);
+  }, [MyPokemon]);
+  useEffect(() => {
+    console.log(nickname);
+  }, [nickname]);
 
   const handleSave = () => {
-    if (!nickName) {
-      setError("can not be empty!");
+    if (!nickname) {
+      swal("Oh No!", "give me nickname before you save me!", "warning");
+    } else if (
+      MyPokemon.filter((MyPokemon) => MyPokemon.nickname.includes(nickname))
+        .length > 0 &&
+      MyPokemon.filter((MyPokemon) => MyPokemon.name.includes(name)).length > 0
+    ) {
+      swal("Oh No!", "give me another nickname please!", "warning");
     } else {
-      dispatch(allStore.addPokemon({ name, nickName }));
+      dispatch(allStore.addPokemon({ name, nickname }));
       navigate("/my-pokemon");
       swal({
         title: "Good job!",
@@ -50,14 +59,13 @@ const ModalAdd = ({ show, onHide, name }) => {
           <p>Give it a nickname:</p>
           <Form.Control
             type="text"
-            value={nickName}
-            placeholder={error}
+            value={nickname}
+            placeholder="give me nickname"
             onChange={(e) => setNickName(e.target.value)}
           />
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={() => handleSave()}>Save</Button>
-          {/* <Button onClick={props.onHide}>Close</Button> */}
         </Modal.Footer>
       </Modal>
     </>

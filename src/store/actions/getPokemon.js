@@ -8,8 +8,7 @@ export const getPokemon = () => {
             dispatch(setPokemon(data.results))
         })
         .catch((err)=>{
-            console.log(err);
-        
+            console.log(err);        
         })
     }
 }

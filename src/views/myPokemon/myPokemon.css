@@ -5,6 +5,7 @@
   border-color: steelblue;
   border-width: 3px;
   box-shadow: none;
+  text-transform: lowercase;
 }
 .search-bar:focus{
   box-shadow: none !important;
